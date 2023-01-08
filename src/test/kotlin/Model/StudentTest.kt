@@ -21,36 +21,4 @@ class StudentTest {
             sut.inscribeSubject(creditlessSubject)
         }
     }
-
-    @Test
-    fun getCareer() {
-    }
-
-    @Test
-    fun setCareer() {
-    }
-
-    @Test
-    fun getScores() {
-    }
-
-    @Test
-    fun setScores() {
-    }
-
-    @Test
-    fun getCurrentSubjects() {
-    }
-
-    @Test
-    fun setCurrentSubjects() {
-    }
-
-    @Test
-    fun getMaxCredits() {
-    }
-
-    @Test
-    fun setMaxCredits() {
-    }
 }

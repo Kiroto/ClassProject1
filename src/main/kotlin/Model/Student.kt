@@ -3,7 +3,9 @@ package Model
 import Exceptions.ExceedingMaxCreditsException
 
 class Student : Person {
-
+    companion object {
+        const val maxSubjects = 4
+    }
     var career: String
     private var scores: ArrayList<Score>
     private var currentSubjects: ArrayList<Subject>

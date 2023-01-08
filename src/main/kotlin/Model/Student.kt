@@ -10,6 +10,7 @@ class Student : Person {
     var maxCredits: Int
 
     val currentCredits : Int get() = currentSubjects.sumOf { it.credits }
+    val remainingCredits : Int get() = maxCredits - currentCredits
 
     constructor(
         name: String,

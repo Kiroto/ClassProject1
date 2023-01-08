@@ -12,13 +12,20 @@ class StudentTest {
         val studentLastName = "Pitelson"
         val studentAge = 19
         val studentCareer = "Medicine"
+        val maxCredits = 7
+
+        fun generateSut(): Student {
+            return Student(studentName, studentLastName, studentAge, studentCareer, maxCredits)
+        }
     }
 
     @Test
     fun inscribeSubject() {
-        val sut = Student(studentName, studentLastName, studentAge, studentCareer, 7)
+        val sut = generateSut()
         assertDoesNotThrow {
             sut.inscribeSubject(creditlessSubject)
         }
+        assert(sut.currentCredits == 0)
+        assert(sut.remainingCredits == maxCredits)
     }
 }

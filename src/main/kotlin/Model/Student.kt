@@ -43,7 +43,7 @@ class Student : Person {
         this.maxCredits = maxCredits
     }
     fun inscribeSubject(subject: Subject) {
-        if(currentSubjects.size <= maxSubjects)
+        if(currentSubjects.size <= maxSubjects -1)
             if (currentCredits + subject.credits <= maxCredits)
                 currentSubjects.add(subject)
             else {

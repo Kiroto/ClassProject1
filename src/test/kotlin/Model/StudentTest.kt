@@ -63,9 +63,13 @@ class StudentTest {
         val sut = generateSut()
         assertThrows<ExceedingMaxSubjectsException>{
             sut.inscribeSubject(creditlessSubject)
+            sut.inscribeSubject(creditlessSubject)
+            sut.inscribeSubject(creditlessSubject)
+            sut.inscribeSubject(creditlessSubject)
+            sut.inscribeSubject(bigSubject)
         }
         assert(sut.currentCredits == bigSubject.credits)
-        assert(sut.remainingCredits == maxCredits - bigSubject.credits)
+        assert(sut.remainingCredits == maxCredits - bigSubject.credits )
     }
 
 

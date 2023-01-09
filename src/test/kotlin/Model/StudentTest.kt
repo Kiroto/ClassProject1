@@ -1,7 +1,10 @@
 package Model
 
+import Exceptions.ExceedingMaxCreditsException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class StudentTest {
     companion object {
@@ -28,4 +31,31 @@ class StudentTest {
         assert(sut.currentCredits == 0)
         assert(sut.remainingCredits == maxCredits)
     }
+
+    @Test
+    fun inscribeSubjectEnoughCredits() {
+        val sut = generateSut()
+        assertDoesNotThrow {
+            sut.inscribeSubject(bigSubject)
+        }
+        assert(sut.currentCredits == bigSubject.credits)
+        assert(sut.remainingCredits == maxCredits - bigSubject.credits )
+    }
+
+    @Test
+    fun inscribeSubjectNotEnoughCredits() {
+        val sut = generateSut()
+        assertDoesNotThrow{
+            sut.inscribeSubject(bigSubject)
+        }
+        assertThrows<ExceedingMaxCreditsException> {
+            sut.inscribeSubject(smallSubject)
+        }
+        assert(sut.currentCredits == bigSubject.credits)
+        assert(sut.remainingCredits == maxCredits - bigSubject.credits )
+    }
+
+
+
+
 }

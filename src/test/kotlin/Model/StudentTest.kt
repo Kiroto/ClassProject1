@@ -1,6 +1,7 @@
 package Model
 
 import Exceptions.ExceedingMaxCreditsException
+import Exceptions.ExceedingMaxSubjectsException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -11,6 +12,9 @@ class StudentTest {
         val creditlessSubject = Subject(0, "English 101", 0)
         val bigSubject = Subject(1, "Discrete Maths", 5)
         val smallSubject = Subject(2, "Writing", 3)
+        val randomSubject = Subject(2, "Science 101", 2)
+        val otherSubject = Subject(2, "Maths 102", 4)
+        val anotherSubject = Subject(2, "Programming Lab 101", 1)
         val studentName = "Pitel"
         val studentLastName = "Pitelson"
         val studentAge = 19
@@ -54,7 +58,15 @@ class StudentTest {
         assert(sut.currentCredits == bigSubject.credits)
         assert(sut.remainingCredits == maxCredits - bigSubject.credits )
     }
-
+    @Test
+    fun inscribeMoreThanFourSubjects() {
+        val sut = generateSut()
+        assertThrows<ExceedingMaxSubjectsException>{
+            sut.inscribeSubject(creditlessSubject)
+        }
+        assert(sut.currentCredits == bigSubject.credits)
+        assert(sut.remainingCredits == maxCredits - bigSubject.credits)
+    }
 
 
 

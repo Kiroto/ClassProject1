@@ -1,6 +1,7 @@
 package Model
 
 import Exceptions.ExceedingMaxCreditsException
+import Exceptions.ExceedingMaxSubjectsException
 
 class Student : Person {
     companion object {
@@ -42,10 +43,13 @@ class Student : Person {
         this.maxCredits = maxCredits
     }
     fun inscribeSubject(subject: Subject) {
-        if (currentCredits + subject.credits <= maxCredits)
-            currentSubjects.add(subject)
-        else {
-            throw ExceedingMaxCreditsException(currentCredits, maxCredits, subject.credits)
-        }
+        if(currentSubjects.size <= maxSubjects)
+            if (currentCredits + subject.credits <= maxCredits)
+                currentSubjects.add(subject)
+            else {
+                throw ExceedingMaxCreditsException(currentCredits, maxCredits, subject.credits)
+            }
+        else
+            throw ExceedingMaxSubjectsException(currentSubjects, maxSubjects)
     }
 }

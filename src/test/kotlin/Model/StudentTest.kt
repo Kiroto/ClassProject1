@@ -3,7 +3,6 @@ package Model
 import Exceptions.ExceedingMaxCreditsException
 import Exceptions.ExceedingMaxSubjectsException
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -43,35 +42,37 @@ class StudentTest {
             sut.inscribeSubject(bigSubject)
         }
         assert(sut.currentCredits == bigSubject.credits)
-        assert(sut.remainingCredits == maxCredits - bigSubject.credits )
+        assert(sut.remainingCredits == maxCredits - bigSubject.credits)
     }
 
     @Test
     fun inscribeSubjectNotEnoughCredits() {
         val sut = generateSut()
-        assertDoesNotThrow{
+        assertDoesNotThrow {
             sut.inscribeSubject(bigSubject)
         }
         assertThrows<ExceedingMaxCreditsException> {
             sut.inscribeSubject(smallSubject)
         }
         assert(sut.currentCredits == bigSubject.credits)
-        assert(sut.remainingCredits == maxCredits - bigSubject.credits )
+        assert(sut.remainingCredits == maxCredits - bigSubject.credits)
     }
+
     @Test
     fun inscribeMoreThanFourSubjects() {
         val sut = generateSut()
-        assertThrows<ExceedingMaxSubjectsException>{
+        assertDoesNotThrow {
             sut.inscribeSubject(creditlessSubject)
             sut.inscribeSubject(creditlessSubject)
             sut.inscribeSubject(creditlessSubject)
             sut.inscribeSubject(creditlessSubject)
+        }
+        assertThrows<ExceedingMaxSubjectsException> {
             sut.inscribeSubject(bigSubject)
         }
-        assert(sut.currentCredits == bigSubject.credits)
-        assert(sut.remainingCredits == maxCredits - bigSubject.credits )
+        assert(sut.currentCredits == 0)
+        assert(sut.remainingCredits == maxCredits)
     }
-
 
 
 }
